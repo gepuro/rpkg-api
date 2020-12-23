@@ -44,7 +44,7 @@ fn select_rpkg(query: Option<String>) -> Vec<PkgInfo> {
     rpkgs
 }
 
-#[get("/?<q>")]
+#[get("/rpkg?<q>")]
 fn index(q: Option<String>) -> Json<Vec<PkgInfo>> {
     Json(select_rpkg(q))
 }
