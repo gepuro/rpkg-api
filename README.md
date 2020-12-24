@@ -3,6 +3,8 @@
 search R language package.
 http://rpkg-api.gepuro.net/rpkg?q={word}
 
+The number of response packages is up to 100;
+
 # Build
 
 ```
