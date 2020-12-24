@@ -49,6 +49,13 @@ fn index(q: Option<String>) -> Json<Vec<PkgInfo>> {
     Json(select_rpkg(q))
 }
 
+#[get("/system/health")]
+fn health_check() -> &'static str {
+    "ok"
+}
+
 fn main() {
-    rocket::ignite().mount("/", routes![index]).launch();
+    rocket::ignite()
+        .mount("/", routes![index, health_check])
+        .launch();
 }
