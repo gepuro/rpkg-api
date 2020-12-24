@@ -1,4 +1,4 @@
-DROP TABLE raw_rpkg;
+# DROP TABLE raw_rpkg;
 .mode tabs
 CREATE TABLE raw_rpkg(
     content json not null
@@ -7,7 +7,7 @@ CREATE TABLE raw_rpkg(
 -- select count(1) from raw_rpkg;
 -- select * from raw_rpkg where content LIKE "%AlexandreMillette1989/OneStopAnova%";
 
-DROP TABLE rpkg;
+# DROP TABLE rpkg;
 CREATE TABLE rpkg(
 	pkg_name TEXT,
 	title TEXT,

@@ -26,7 +26,6 @@ fn select_rpkg(query: Option<String>) -> Vec<PkgInfo> {
         "" => params![],
         _ => params_query,
     };
-
     let mut stmt = conn.prepare(sql).unwrap();
     let rpkg_iter = stmt
         .query_map(sql_params, |row| {
@@ -45,7 +44,7 @@ fn select_rpkg(query: Option<String>) -> Vec<PkgInfo> {
 }
 
 #[get("/rpkg?<q>")]
-fn index(q: Option<String>) -> Json<Vec<PkgInfo>> {
+fn rpkg(q: Option<String>) -> Json<Vec<PkgInfo>> {
     Json(select_rpkg(q))
 }
 
@@ -54,8 +53,13 @@ fn health_check() -> &'static str {
     "ok"
 }
 
+#[get("/")]
+fn index() -> &'static str {
+    "<html><body>How to use this API: <a href='https://github.com/gepuro/rpkg-api/blob/master/README.md'>README</a></body></html>"
+}
+
 fn main() {
     rocket::ignite()
-        .mount("/", routes![index, health_check])
+        .mount("/", routes![index, rpkg, health_check])
         .launch();
 }
