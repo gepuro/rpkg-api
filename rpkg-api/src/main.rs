@@ -58,7 +58,9 @@ fn index() -> rocket::response::content::Html<&'static str> {
     let html = "<html>
     <body>
     <a href='http://rpkg-api.gepuro.net/rpkg?q=gepuro'>Search R Packages</a> <br>
-    How to use this API: <a href='https://github.com/gepuro/rpkg-api/blob/master/README.md'>README</a>
+    How to use this API: <a href='https://github.com/gepuro/rpkg-api/blob/master/README.md'>README</a> <br>
+    Developer: <a href='https://twitter.com/gepuro'> @gepuro </a> <br>
+    My Site: <a href='http://gepuro.net'> http://gepuro.net </a>
     </body>
     </html>";
     let response = content::Html(html);
