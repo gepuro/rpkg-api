@@ -9,8 +9,8 @@ use rusqlite::{params, Connection};
 fn select_rpkg(query: Option<String>) -> Vec<PkgInfo> {
     let conn = Connection::open("data/pkg.db").unwrap();
     let sql = match query {
-        Some(ref _query) => "SELECT pkg_name, title, url FROM rpkg WHERE pkg_name LIKE ? or title LIKE ? or url LIKE ? ORDER BY pkg_name LIMIT 100",
-        None => "SELECT pkg_name, title, url FROM rpkg ORDER BY pkg_name LIMIT 100",
+        Some(ref _query) => "SELECT pkg_name, title, url FROM rpkg WHERE pkg_name LIKE ? or title LIKE ? or url LIKE ? ORDER BY pkg_name",
+        None => "SELECT pkg_name, title, url FROM rpkg ORDER BY pkg_name",
     };
     let query_with_percent = query
         .map(|query| format!("%{}%", query))
