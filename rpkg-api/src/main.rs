@@ -4,7 +4,7 @@ extern crate rocket;
 use rocket::response::content;
 use rocket_contrib::json::Json;
 use rpkg_api::models::PkgInfo;
-use rusqlite::{params, Connection};
+use rusqlite::{params, ToSql, Connection};
 
 fn select_rpkg(query: Option<String>) -> Vec<PkgInfo> {
     let conn = Connection::open("data/pkg.db").unwrap();
@@ -12,17 +12,12 @@ fn select_rpkg(query: Option<String>) -> Vec<PkgInfo> {
         Some(ref _query) => "SELECT pkg_name, title, url FROM rpkg WHERE pkg_name LIKE ? or title LIKE ? or url LIKE ? ORDER BY pkg_name",
         None => "SELECT pkg_name, title, url FROM rpkg ORDER BY pkg_name",
     };
-    let query_with_percent = query
+    let query_with_percent: String = query
         .map(|query| format!("%{}%", query))
         .unwrap_or_else(|| format!(""));
-
-    let query_with_percent2: &str = &query_with_percent;
-    let params_query = params![
-        query_with_percent2,
-        query_with_percent2,
-        query_with_percent2
-    ];
-    let sql_params = match query_with_percent2 {
+        
+    let params_query: &[&dyn ToSql] = &[&query_with_percent as &dyn rusqlite::ToSql; 3];
+    let sql_params = match query_with_percent.as_ref() {
         "" => params![],
         _ => params_query,
     };
